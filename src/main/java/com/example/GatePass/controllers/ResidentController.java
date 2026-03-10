@@ -2,7 +2,9 @@ package com.example.GatePass.controllers;
 
 import com.example.GatePass.models.ResidentDTO;
 import com.example.GatePass.models.ResidentEntity;
+import com.example.GatePass.models.VisitorDTO;
 import com.example.GatePass.services.ResidentService;
+import com.example.GatePass.wrapperClasses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +44,18 @@ public class ResidentController {
         return residentService.deleteResident(id);
     }
 
+    @PostMapping("/visitors_expected/unit/{unit}")
+    public ResponseEntity<String> addVisitor(@PathVariable int unit, @RequestBody VisitorDTO visitor){
+        return residentService.addVisitor(unit,visitor);
+    }
 
+    @PutMapping("/visitors_expected/update_visitor/{unit}")
+    public ResponseEntity<ApiResponse<VisitorDTO>> updateVisitor(@PathVariable int unit, @RequestBody VisitorDTO visitor){
+        return residentService.updateVisitor(unit,visitor);
+    }
+
+    @DeleteMapping("/visitors_expected/delete_visitor/{unit}/{id}")
+    public ResponseEntity<ApiResponse<VisitorDTO>> deleteVisitor(@PathVariable int unit, @PathVariable String id){
+        return residentService.deleteVisitor(unit, id);
+    }
 }
